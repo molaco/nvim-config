@@ -267,4 +267,19 @@ table.insert({}, {})
 
 table.insert(snippets, newSnippet)
 
+local newSimpleSnippet = s("nss", fmt(
+[[
+local {} = s("{}", t"{}")
+table.insert({}, {})
+]], { 
+  i(1, ""),
+  i(2, ""),
+  i(3, ""),
+  c(4, { t"autosnippets", t"snippets"}),
+  rep(1),
+}
+))
+
+table.insert(snippets, newSimpleSnippet)
+
 return snippets, autosnippets

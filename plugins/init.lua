@@ -1,5 +1,20 @@
 return {
 
+  ["Pocco81/AutoSave.nvim"] = {
+    module = "autosave",
+    config = function()
+      require("custom.plugins.smolconfigs").autosave()
+    end,
+  },
+
+  --format & linting
+  ["jose-elias-alvarez/null-ls.nvim"] = {
+    after = "nvim-lspconfig",
+    config = function()
+      require "custom.plugins.null-ls"
+    end,
+  },
+
   --Enable which-key
   ['folke/which-key.nvim'] = { disable = false  },
 
@@ -11,7 +26,6 @@ return {
         let g:tex_flavor='latex'
         let g:vimtex_view_method='zathura'
         let g:vimtex_quickfix_mode=0
-        set conceallevel=1
         let g:tex_conceal='abdmg'
         set spelllang=es
       ]]
