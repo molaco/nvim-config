@@ -260,7 +260,7 @@ local functionDeclaration = s("fun", fmt( -- Description
 
 table.insert(autosnippets, functionDeclaration)
 
-local funtiondec = postfix( ",fd", fmt([[
+local ssubScript = postfix( ",fd", fmt([[
 {} : {} \to {}
 ]], {
   d(1, function(_, parent)
@@ -270,7 +270,7 @@ local funtiondec = postfix( ",fd", fmt([[
   i(3, ""),
   }), {condition = math} )
 
-table.insert(autosnippets, funtiondec)
+table.insert(autosnippets, ssubScript)
 
 local subset = s("cc", t"\\subset", {condition = math})
 table.insert(autosnippets, subset)
@@ -340,7 +340,7 @@ local funcValue = postfix( ",b", fmt([[
 
 table.insert(autosnippets, funcValue)
 
-local ssubScript = postfix( "--", fmt([[
+local ssubScript = postfix( ",-", fmt([[
 {}_{{{}}}
 ]], {
   d(1, function(_, parent)
@@ -963,7 +963,7 @@ table.insert(autosnippets, bigcap)
 local bigcup = s("bU", t"\\bigcup", {conditions = math})
 table.insert(autosnippets, bigcup)
 
-local crossProduct = s("tm", t"\\times", {condition = math})
+local crossProduct = s("*c", t"\\times", {condition = math})
 table.insert(autosnippets, crossProduct)
 
 --local absoluteValue = s("av", fmt([[
@@ -1118,14 +1118,9 @@ local seno = s("sen", fmt([[
 table.insert(autosnippets, seno)
 
 local coseno = s("cos", fmt([[
-{}({})
+\cos({})
 ]], {
-    c(1, {
-      t"\\cos",
-      t"\\cos^{2}",
-      t"\\cos^{3}"
-    }),
-    i(2, "\\theta")
+    i(1, ""),
   }), {condition = math})
 table.insert(autosnippets, coseno)
 
@@ -1317,8 +1312,6 @@ local greekLetters = s({ trig= "gk([%w_]+)", regTrig = true }, fmt([[
         return "\\eta"
       elseif W == "x" then
         return "\\xi"
-      elseif W == "y" then
-        return "\\psi"
       end
     end)
 }), {condition = math})
@@ -2017,6 +2010,13 @@ local limsup2 = s("c1i", fmt([[
 }), {condition = math})
 table.insert(autosnippets, limsup2)
 
+local espacioProbabilidad = s("esp", fmt([[
+(\Omega, \mathcal{{A}}, P )
+]], {
+  
+}), {condition = math})
+table.insert(autosnippets, espacioProbabilidad)
+
 local hat2 = s("hat", fmt([[
 \hat{{ {} }}
 ]], {
@@ -2030,6 +2030,22 @@ local equiv = s("eq", fmt([[
   
 }), {condition = math})
 table.insert(autosnippets, equiv)
+
+local aplDifGeo = s("dX", fmt([[
+(d {})_{{{}}}
+]], {
+  i(1, "X"),
+  i(2, "p"),
+}), {condition = math})
+table.insert(autosnippets, aplDifGeo)
+
+local aplDifGeo2 = s("DX", fmt([[
+d({})_{{{}}}
+]], {
+  i(1, "X"),
+  i(2, "p"),
+}), {condition = math})
+table.insert(autosnippets, aplDifGeo2)
 
 local binom = s("bn", fmt([[
 \binom{{{}}}{{{}}}
@@ -2047,12 +2063,41 @@ local iInNelementes = s("fiN", fmt([[
 }), {condition = math})
 table.insert(autosnippets, iInNelementes)
 
+local baseDeX = s("bs", fmt([[
+\mathcal{{B}} ({})
+]], {
+    c(1, { i(nil, "x"), i(nil, "") })
+}), {condition = math})
+table.insert(autosnippets, baseDeX)
+
+local numerable = s("nmb", fmt([[
+\mathcal{{X}}_0
+]], {
+  
+}), {condition = math})
+table.insert(autosnippets, numerable)
+
+local cardinal = s("caa", fmt([[
+\card({})
+]], {
+  i(1, ""),
+}), {condition = math})
+table.insert(autosnippets, cardinal)
+
 local box = s("bx", fmt([[
 \fbox{{{}}}
 ]], {
   i(1, ""),
 }))
 table.insert(autosnippets, box)
+
+local seriePotencias = s("spc", fmt([[
+\sum_{{n = 0}}^{{\infty}} {} {}
+]], {
+    i(1, "a_{n}"),
+    i(2, "z^{n}"),
+}), {condition = math})
+table.insert(autosnippets, seriePotencias)
 
 local demos = s("dd", fmt([[
   \begin{{enumerate}}[label=(\roman*)]
@@ -2099,6 +2144,24 @@ tal que
 }))
 table.insert(autosnippets, talque)
 
+local compactacion = s("ckk", fmt([[
+( {}, {} )
+]], {
+  i(1, "K"),
+  i(2, "f"),
+}), {condition = math})
+table.insert(autosnippets, compactacion)
+
+local compactacion1 = s("ck1", fmt([[
+( {}_{{{}}}, {}_{{{}}} )
+]], {
+  i(1, "K"),
+  i(2, "1"),
+  i(3, "f"),
+  rep(2),
+}), {condition = math})
+table.insert(autosnippets, compactacion1)
+
 local quad = s("qq", fmt([[
 \quad
 ]], {
@@ -2106,39 +2169,34 @@ local quad = s("qq", fmt([[
 }), {condition = math})
 table.insert(autosnippets, quad)
 
-local subindices = postfix( ",ss", fmt([[
-{}_{{{}_{{{}}}}}
+local esperanza = s("ee", fmt([[
+\mathbb{{E}} [ {} ]
 ]], {
-  d(1, function(_, parent)
-    return sn(nil, {t(parent.snippet.env.POSTFIX_MATCH)})
-  end),
-  i(2, "j"),
-  i(3, "0"),
-  }), {condition = math} )
-
-table.insert(autosnippets, subindices )
-
-local entonces = s("ee", fmt([[
-Entonces,
-]], {
-}))
-table.insert(autosnippets, entonces)
-
-local sol = s("sol", fmt([[
-u(t; t_0, {})
-]], {
-    i(1, "u_0")
+    i(1, "")
 }), {condition = math})
-table.insert(autosnippets, sol)
+table.insert(autosnippets, esperanza)
 
-local sist = s("sist", fmt([[
-{}
+local probabilidd = s("prr", fmt([[
+\mathbb{{P}} \{{ {} \}}
 ]], {
-    c(1, {
-      t("\\dot{{u}} = Au + b"),
-      t("\\dot{{u}}(t) = Au(t) + b(t)")
-    })
+    i(1, "")
 }), {condition = math})
-table.insert(autosnippets, sist)
+table.insert(autosnippets, probabilidd)
+
+local compactacion2 = s("ck2", fmt([[
+( {}, {} )
+]], {
+  i(1, "K"),
+  i(2, "f"),
+}), {condition = math})
+table.insert(autosnippets, compactacion2)
+
+local espacioTangente = s("te", fmt([[
+T_{{{}}}({})
+]], {
+  i(1, "p"),
+  i(2, "S"),
+}), {condition = math})
+table.insert(autosnippets, espacioTangente)
 
 return snippets, autosnippets

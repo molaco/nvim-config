@@ -10,7 +10,7 @@ M.luasnip = function()
   end
 
   local options = {
-    history = true,
+    history = false,
     updateevents = "TextChanged,TextChangedI",
     enable_autosnippets = true,
   }
@@ -19,16 +19,22 @@ M.luasnip = function()
   luasnip.config.set_config(options)
   --require("luasnip.loaders.from_vscode").lazy_load()
   --require("luasnip.loaders.from_snipmate").lazy_load { paths = "~/.config/nvim/lua/custom/snippets"}
+  --require("luasnip.loaders.from_lua").lazy_load({ paths = "~/.config/nvim/lua/custom/snippets"})
   require("luasnip.loaders.from_lua").lazy_load({ paths = "~/.config/nvim/lua/custom/snippets"})
+  require('luasnip').filetype_extend("tex", { "toel" })
+  require('luasnip').filetype_extend("tex", { "gd" })
+  require('luasnip').filetype_extend("tex", { "edif" })
+  require('luasnip').filetype_extend("tex", { "prob" })
+  require('luasnip').filetype_extend("tex", { "afvc" })
   require('luasnip').filetype_extend("javascript", { "html" })
   require('luasnip').filetype_extend("javascript", { "javascriptreact" })
   require('luasnip').filetype_extend(".ejs", { "html" })
 
     -- set keybinds for both INSERT and VISUAL.
-  vim.api.nvim_set_keymap("i", "<C-n>", "<Plug>luasnip-jump-next", {})
-  vim.api.nvim_set_keymap("s", "<C-n>", "<Plug>luasnip-next-choice", {})
-  vim.api.nvim_set_keymap("i", "<C-p>", "<Plug>luasnip-prev-choice", {})
-  vim.api.nvim_set_keymap("s", "<C-p>", "<Plug>luasnip-prev-choice", {})
+  vim.api.nvim_set_keymap("i", "<C-n>", "<Plug>luasnip-prev-next", {})
+  vim.api.nvim_set_keymap("s", "<C-n>", "<Plug>luasnip-prev-choice", {})
+  vim.api.nvim_set_keymap("i", "<C-p>", "<Plug>luasnip-next-choice", {})
+  vim.api.nvim_set_keymap("s", "<C-p>", "<Plug>luasnip-next-choice", {})
 
   vim.keymap.set({ "i", "s" }, "<c-k>", function()
     if luasnip.expand_or_jumpable() then
