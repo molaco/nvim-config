@@ -2141,4 +2141,21 @@ local sist = s("sist", fmt([[
 }), {condition = math})
 table.insert(autosnippets, sist)
 
+--local parentes = s("(", fmt([[
+--({})
+--]], {
+--  i(1, ""),
+--}))
+--table.insert(autosnippets, parentes)
+
+--local parentes = postfix( "(", fmt([[
+--{}({})
+--]], {
+--  d(1, function(_, parent)
+--    return sn(nil, {t(parent.snippet.env.POSTFIX_MATCH)})
+--  end),
+--  i(2, ""),
+--  }), {condition = math})
+--table.insert(autosnippets, parentes)
+
 return snippets, autosnippets
