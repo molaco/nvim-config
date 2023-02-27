@@ -62,4 +62,19 @@ local vector3 = s("vxyz", fmt([[
 }), {condition = math})
 table.insert(autosnippets, vector3)
 
+local covariantDerivative = s("cd", fmt([[
+\frac{{D {}}}{{d {}}}
+]], {
+    i(1, ""),
+    i(2, ""),
+}), {condition = math})
+table.insert(autosnippets, covariantDerivative)
+
+local ppa = s("paa", fmt([[
+p.p.a.
+]], {
+  
+}))
+table.insert(autosnippets, ppa)
+
 return snippets, autosnippets

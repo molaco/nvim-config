@@ -15,7 +15,7 @@ M.plugins = {
 }
 
 M.ui = {
-  theme = "onedark",
+  theme = "doomchad",
 }
 
 M.mappings = require "custom.mappings"

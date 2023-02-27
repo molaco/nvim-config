@@ -28,7 +28,7 @@ end
 -- Start Refactoring --
 
 -- End Refactoring --
-local espacioProbabilidad = s("eesp", fmt([[
+local espacioProbabilidad = s("essp", fmt([[
 (\Omega, \mathcal{{A}}, P )
 ]], {
   
@@ -49,5 +49,12 @@ local probabilidd = s("prr", fmt([[
 }), {condition = math})
 table.insert(autosnippets, probabilidd)
 
-return snippets, autosnippets
+local fdp = s("fdp", fmt([[
+f_{{{}}}({})
+]], {
+  i(1, "X|Y"),
+  i(2, "x|y")
+}), {condition = math})
+table.insert(autosnippets, fdp)
 
+return snippets, autosnippets
